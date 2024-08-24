@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+
+
+<div class="rightcolumn">
+    {% for p in posts %}
+    <div class="card">
+        <div class="split">
+            <div class="title"><h2>{{ p.title }}</h2></div>
+            <div class="category">{{ p.category }}</div>
+        </div>
+        <h5>{{ p.time_create }}</h5>
+        <div class="fakeimg">
+            <img src="{{ p.photo.url }}" alt="{{ p.title }}">
+        </div>
+        <div class="cardinfo">
+            <div>{{ p.content|truncatechars:100 }}</div>  <!-- Ограничиваем до 100 символов -->
+            <form action="{% url 'like_post' p.id %}" method="POST">  <!-- Исправлено с post.id на p.id -->
+                {% csrf_token %}
+                <button type="submit">Лайк</button>
+            </form>
+            <p class="likes-count">likes: {{ p.likes }}</p>
+            <button type="button" onclick="window.location.href='{{ p.get_absolute_url }}'">
+                Перейти
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

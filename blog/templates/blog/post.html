@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block post %}
+<div class="rightcolumn">
+
+<h1>{{ post.title }}</h1>
+{% if post.photo %}
+    <p><img class="size" src="{{ post.photo.url }}" alt="{{ post.title }}" class="post-image"></p>
+    <div class="post-content">{{ post.content|linebreaks }}</div>
+{% endif %}
+</div>
+{% endblock %}
